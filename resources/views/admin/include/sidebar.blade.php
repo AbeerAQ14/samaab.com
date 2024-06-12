@@ -18,9 +18,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="sf" class="nav-link">
+                <a href="{{route('admin.user.index')}}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
-                    <span class="link-title">safafsa</span>
+                    <span class="link-title">Users</span>
                 </a>
             </li>
         </ul>

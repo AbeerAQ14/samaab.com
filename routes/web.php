@@ -27,4 +27,12 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::controller(App\Http\Controllers\Admin\DashboardController::class)->group(function () {
         Route::get('dashboard', 'index')->name('dashboard');
     });
+    Route::controller(\App\Http\Controllers\Admin\UserController::class)->prefix('users')->name('user.')->group(function () {
+       Route::get('/', 'index')->name('index');
+       Route::get('create', 'create')->name('create');
+       Route::post('store', 'store')->name('store');
+       Route::get('edit/{id}', 'edit')->name('edit');
+       Route::post('update/{id}', 'update')->name('update');
+       Route::delete('destroy/{id}', 'destroy')->name('destroy');
+    });
 });
