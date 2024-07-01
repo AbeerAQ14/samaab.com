@@ -33,6 +33,6 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
        Route::post('store', 'store')->name('store');
        Route::get('edit/{id}', 'edit')->name('edit');
        Route::post('update/{id}', 'update')->name('update');
-       Route::delete('destroy/{id}', 'destroy')->name('destroy');
+       Route::delete('destroy', 'destroy')->name('destroy');
     });
 });

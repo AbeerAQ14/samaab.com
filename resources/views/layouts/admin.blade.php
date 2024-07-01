@@ -75,7 +75,10 @@
 <script src="{{asset('admin_assets/vendors/core/core.js')}}"></script>
 <script src="{{asset('admin_assets/vendors/feather-icons/feather.min.js')}}"></script>
 <script src="{{asset('admin_assets/js/template.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 @stack('script-library')
 @stack('script')
 </body>
 </html>
+@include('sweetalert::alert')

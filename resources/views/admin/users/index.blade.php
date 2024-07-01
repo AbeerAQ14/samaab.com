@@ -28,8 +28,15 @@
                                         <td>{{$user->email}}</td>
                                         <td>{{\Illuminate\Support\Carbon::parse($user->created_at)->format('Y-m-d h:i A')}}</td>
                                         <td>
-                                            <a href="" class="btn btn-outline-warning btn-sm"><i class="icon-md" data-feather="edit"></i></a>
-                                            <a href="" class="btn btn-outline-danger btn-sm"><i class=" icon-md" data-feather="trash-2"></i></a>
+                                            <a href="{{route('admin.user.edit',['id'=>$user->id])}}" class="btn btn-outline-warning btn-sm"><i class="icon-md" data-feather="edit"></i></a>
+                                            @if(auth()->id() != $user->id)
+                                            <a onclick="deleteCall('{{$user->id}}')" href="{{route('admin.user.destroy')}}" class="btn btn-outline-danger btn-sm delete"><i class=" icon-md" data-feather="trash-2"></i></a>
+                                            <form method="POST" action="{{route('admin.user.destroy')}}" class="d-none" id="delete-{{$user->id}}">
+                                                <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                                <input type="hidden" name="id" value="{{$user->id}}">
+                                                @method('delete')
+                                            </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty
@@ -59,6 +66,21 @@
                 search: "Search"
             }
         });
-
+        function deleteCall(id){
+            event.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#delete-'+id).submit();
+                }
+            })
+        }
     </script>
 @endpush
