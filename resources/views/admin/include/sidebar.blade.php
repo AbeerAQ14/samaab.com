@@ -18,9 +18,21 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{route('admin.analytic.index')}}" class="nav-link">
+                    <i class="link-icon" data-feather="box"></i>
+                    <span class="link-title">Analytics</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="{{route('admin.user.index')}}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
                     <span class="link-title">Users</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{route('admin.setting.index')}}" class="nav-link">
+                    <i class="link-icon" data-feather="box"></i>
+                    <span class="link-title">Settings</span>
                 </a>
             </li>
         </ul>

@@ -35,4 +35,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
        Route::post('update/{id}', 'update')->name('update');
        Route::delete('destroy', 'destroy')->name('destroy');
     });
+    Route::prefix('analytics')->controller(\App\Http\Controllers\Admin\AnalyticController::class)->group(function (){
+        Route::get('/', 'index')->name('analytic.index');
+    });
+
+    Route::prefix('setting')->controller(\App\Http\Controllers\Admin\SettingController::class)->group(function (){
+        Route::get('/', 'index')->name('setting.index');
+    });
 });
