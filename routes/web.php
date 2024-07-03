@@ -1,7 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
+use \Illuminate\Support\Facades\Artisan;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +17,30 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [\App\Http\Controllers\HomeController::class,'index'])->name('landing');
 
 Route::get('clear',function (){
-    \Artisan::call('route:clear');
-    \Artisan::call('config:clear');
-    \Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+});
+Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::controller(App\Http\Controllers\Admin\DashboardController::class)->group(function () {
+        Route::get('/', 'home')->name('main');
+        Route::get('dashboard', 'index')->name('dashboard');
+    });
+    Route::controller(\App\Http\Controllers\Admin\UserController::class)->prefix('users')->name('user.')->group(function () {
+       Route::get('/', 'index')->name('index');
+       Route::get('create', 'create')->name('create');
+       Route::post('store', 'store')->name('store');
+       Route::get('edit/{id}', 'edit')->name('edit');
+       Route::post('update/{id}', 'update')->name('update');
+       Route::delete('destroy', 'destroy')->name('destroy');
+    });
+    Route::prefix('analytics')->controller(\App\Http\Controllers\Admin\AnalyticController::class)->group(function (){
+        Route::get('/', 'index')->name('analytic.index');
+    });
+
+    Route::prefix('setting')->controller(\App\Http\Controllers\Admin\SettingController::class)->group(function (){
+        Route::get('/', 'index')->name('setting.index');
+    });
 });
